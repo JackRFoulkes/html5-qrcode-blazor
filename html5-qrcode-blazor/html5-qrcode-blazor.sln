@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "html5-qrcode-blazor", "html5-qrcode-blazor\html5-qrcode-blazor.csproj", "{DCFFD9C3-BA24-4B13-9D23-D6C5819E7536}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Wasm", "Demo.Wasm\Demo.Wasm.csproj", "{222C4901-818E-4138-BEE3-FC65CC6467D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCFFD9C3-BA24-4B13-9D23-D6C5819E7536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCFFD9C3-BA24-4B13-9D23-D6C5819E7536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCFFD9C3-BA24-4B13-9D23-D6C5819E7536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCFFD9C3-BA24-4B13-9D23-D6C5819E7536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{222C4901-818E-4138-BEE3-FC65CC6467D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{222C4901-818E-4138-BEE3-FC65CC6467D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{222C4901-818E-4138-BEE3-FC65CC6467D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{222C4901-818E-4138-BEE3-FC65CC6467D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58E04D32-769A-4E1D-93DD-47C3C72FDFC3}
+	EndGlobalSection
+EndGlobal

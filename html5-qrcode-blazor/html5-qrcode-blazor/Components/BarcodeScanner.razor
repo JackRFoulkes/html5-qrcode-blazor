@@ -1,0 +1,110 @@
+﻿@using html5_qrcode_blazor.Classes
+@inject html5_qrcode_blazor.Classes.BarcodeScannerService BarcodeScannerService
+
+<div style="width: 500px">
+    <div class="reader" id="reader"></div>
+    @if (SingleScan)
+    {
+        <div class="reader-results">
+            <input type="text" value="@(!ScannedItems.IsNullOrEmpty() ? ScannedItems.Last() : string.Empty)" style="width: 79%" />
+            <button @onclick="Retry" class="reader-retry" style="width: 20%" disabled="@ScannedItems.IsNullOrEmpty()">Retry</button>
+        </div>
+    }
+    else if (ContinuousScan)
+    {
+        <div style="height: 200px; overflow-y: scroll; margin-top: 10px;">
+            <table class="results">
+                <tr>
+                    <th>#</th>
+                    <th>Result</th>
+                </tr>
+                @foreach (var (item, index) in ScannedItems.WithIndex())
+                {
+                    <tr>
+                        <td>@(index + 1) </td>
+                        <td>@item</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+</div>
+@code{
+
+    [Parameter]
+    public int Fps { get; set; }
+
+    [Parameter]
+    public int Qrbox { get; set; }
+
+    [Parameter]
+    public bool ContinuousScan { get; set; }
+
+    [Parameter]
+    public bool SingleScan { get; set; }
+
+    public List<string> ScannedItems { get; set; } = new List<string>();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if(SingleScan)
+            {
+                ContinuousScan = false;
+            }
+
+            if (ContinuousScan)
+            {
+                SingleScan = false;
+            }
+
+            await ShowBarcodeScanner();
+            BarcodeScannerService.OnSuccessfulScan += OnSuccessfulScan;
+        }
+
+    }
+
+    public string GetScannedItem()
+    {
+        return BarcodeScannerService.LastScannedItem;
+    }
+
+    public async Task Retry()
+    {
+        await ShowBarcodeScanner();
+    }
+
+    private void OnSuccessfulScan(object sender, EventArgs e)
+    {
+        if (SingleScan)
+        {
+            ScannedItems.Clear();
+        }
+
+        if(ScannedItems.Count == 0)
+        {
+            ScannedItems.Add(BarcodeScannerService.LastScannedItem);
+        } 
+        else if (ScannedItems.Count > 0)
+        {
+            string lastitem = ScannedItems.Last();
+            if(!string.IsNullOrWhiteSpace(lastitem))
+            {
+                if(lastitem != BarcodeScannerService.LastScannedItem)
+                {
+                    ScannedItems.Add(BarcodeScannerService.LastScannedItem);
+                }
+            }
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task ShowBarcodeScanner()
+    {
+        ScannedItems.Clear();
+        await BarcodeScannerService.CreateBarcodeScanner(Fps, Qrbox, ContinuousScan, SingleScan);
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,46 @@
+﻿@page "/"
+
+@code
+{
+    private bool showSingleScan;
+    private bool showContScan;
+
+    void SingleScan()
+    {
+        showSingleScan = true;
+        showContScan = false;
+        StateHasChanged();
+    }
+
+    void ContScan()
+    {
+        showSingleScan = false;
+        showContScan = true;
+        StateHasChanged();
+    }
+}
+
+
+    <h3>Barcode Scanner</h3>
+
+    <div style="margin-bottom: 10px;">
+        <button @onclick="SingleScan">Single Scan Mode</button>
+        <button @onclick="ContScan">Continuous Scan Mode</button>
+    </div>
+
+@if (showContScan)
+{
+    <div class="row">
+        <div class="col-md">
+            <BarcodeScanner Fps="10" Qrbox="250" ContinuousScan="true" />
+        </div>
+    </div>
+}
+else if (showSingleScan)
+{
+    <div class="row">
+        <div class="col-md">
+            <BarcodeScanner Fps="10" Qrbox="250" SingleScan="true" />
+        </div>
+    </div>
+}
